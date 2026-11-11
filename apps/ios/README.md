@@ -2,7 +2,7 @@
 
 ## 第一次打开项目
 
-工程使用 Swift 6、SwiftUI 和 iPhone 目标，最低系统暂定 iOS 17。Xcode 版本由仓库根目录的 `.xcode-version` 固定，当前为 26.6。CI 使用 macOS 26 的 GitHub-hosted runner 和 iOS 26.5 的 iPhone 17 模拟器。
+工程使用 Swift 6、SwiftUI 和 iPhone 目标，最低系统暂定 iOS 17。Xcode 版本由仓库根目录的 `.xcode-version` 固定，当前为 26.6。CI 在 GitHub 的 `macos-26-intel` runner 上运行 iOS 26.5 的 iPhone 17 模拟器，验证和发行作业使用同版 Xcode。
 
 1. 从 [Apple Developer Downloads](https://developer.apple.com/download/all/?q=Xcode%2026.6) 下载完整 Xcode。Apple Silicon 选 Apple silicon 包。解压后将应用命名为 `Xcode_26.6.app` 并放到 `/Applications`。
 2. 打开该版本 Xcode，完成许可和首次组件安装。在 **Xcode → Settings → Components** 安装 iOS 26.5 Simulator Runtime。
@@ -58,4 +58,4 @@ PR 和推送到 `main` 时，iOS 工程、工具链、脚本或对应 workflow �
 
 失败时先查看对应 job 的原始 Xcode 输出。签名问题按团队、Bundle ID、证书指纹和 profile 到期时间排查。上传超时先到 App Store Connect 核对原构建是否已收到，再决定是否重跑。重跑会分配新的构建号，GitHub 会取消超出同一发布并发组排队容量的旧等待项。
 
-参考 [Apple 上传构建](https://developer.apple.com/help/app-store-connect/manage-builds/upload-builds)、[Xcode 系统要求](https://developer.apple.com/xcode/system-requirements)、[GitHub macOS 26 runner 软件清单](https://github.com/actions/runner-images/blob/main/images/macos/macos-26-arm64-Readme.md)。
+参考 [Apple 上传构建](https://developer.apple.com/help/app-store-connect/manage-builds/upload-builds)、[Xcode 系统要求](https://developer.apple.com/xcode/system-requirements)、[GitHub macOS 26 Intel runner 软件清单](https://github.com/actions/runner-images/blob/main/images/macos/macos-26-Readme.md)。

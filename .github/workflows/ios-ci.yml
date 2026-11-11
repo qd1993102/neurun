@@ -29,7 +29,8 @@ concurrency:
 jobs:
   simulator-and-archive:
     name: iOS simulator and archive
-    runs-on: macos-26
+    # The arm64 image stalled in the iOS 26.5 CoreLocation data migration.
+    runs-on: macos-26-intel
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
@@ -38,17 +39,15 @@ jobs:
       - name: Set build output directory
         run: echo "IOS_OUTPUT_DIR=$RUNNER_TEMP/ios-checks" >> "$GITHUB_ENV"
       - name: Check Xcode and simulator
-        id: toolchain
         run: make ios-doctor
+      - name: Archive Release build for iPhone
+        run: make ios-archive
       - name: Boot the iPhone simulator
         timeout-minutes: 6
         run: bash ci/ios/check.sh boot
       - name: Launch smoke test on iPhone simulator
         timeout-minutes: 10
         run: make ios-test
-      - name: Archive Release build for iPhone
-        if: ${{ !cancelled() && steps.toolchain.outcome == 'success' }}
-        run: make ios-archive
       - name: Retain results and build logs
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
