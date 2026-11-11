@@ -3,7 +3,9 @@
 IOS_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 IOS_PROJECT="$IOS_ROOT/apps/ios/Neurun.xcodeproj"
 IOS_XCODE_VERSION="$(cat "$IOS_ROOT/.xcode-version")"
-IOS_DESTINATION="${IOS_DESTINATION:-platform=iOS Simulator,name=iPhone 17,OS=26.5}"
+IOS_SIMULATOR_NAME='iPhone 17'
+IOS_SIMULATOR_OS='26.5'
+IOS_DESTINATION="${IOS_DESTINATION:-platform=iOS Simulator,name=$IOS_SIMULATOR_NAME,OS=$IOS_SIMULATOR_OS}"
 
 # Prefer the named Xcode, without changing the machine's global xcode-select.
 if [[ -z "${DEVELOPER_DIR:-}" && -d "/Applications/Xcode_${IOS_XCODE_VERSION}.app/Contents/Developer" ]]; then

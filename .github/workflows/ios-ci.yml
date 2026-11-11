@@ -38,10 +38,16 @@ jobs:
       - name: Set build output directory
         run: echo "IOS_OUTPUT_DIR=$RUNNER_TEMP/ios-checks" >> "$GITHUB_ENV"
       - name: Check Xcode and simulator
+        id: toolchain
         run: make ios-doctor
+      - name: Boot the iPhone simulator
+        timeout-minutes: 6
+        run: bash ci/ios/check.sh boot
       - name: Launch smoke test on iPhone simulator
+        timeout-minutes: 10
         run: make ios-test
       - name: Archive Release build for iPhone
+        if: ${{ !cancelled() && steps.toolchain.outcome == 'success' }}
         run: make ios-archive
       - name: Retain results and build logs
         if: always()
