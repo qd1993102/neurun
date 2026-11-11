@@ -1,0 +1,14 @@
+.DS_Store
+.build/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+*.xcarchive
+*.xcresult
+*.ipa
+*.mobileprovision
+*.p12
+*.p8
+.env
+.env.*
+apps/ios/Config/Local.xcconfig
